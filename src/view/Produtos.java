@@ -72,7 +72,6 @@ public class Produtos extends JDialog {
 	private JButton btnExcluir;
 	private JTextArea txtaDescricao;
 	private JLabel lblFoto;
-	private JButton btnBuscar;
 	private JButton btnCarregar;
 	private JTextField txtNome;
 	private JList listPR;
@@ -94,6 +93,8 @@ public class Produtos extends JDialog {
 	private JDateChooser dateValidade;
 	private JDateChooser dateEntrada;
 	private JComboBox cboUN;
+	private JPanel panelFor;
+	private JButton btnBuscar;
 
 	/**
 	 * Launch the application.
@@ -155,9 +156,26 @@ public class Produtos extends JDialog {
 		getContentPane().add(lblBarcode);
 
 		txtBarcode = new JTextField();
+		txtBarcode.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				//Leitor de código de barras
+				//Evento ao pressionar uma tecla especifica (enter)
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					pesquisarProdutoBarcode();
+				}
+			}
+			@Override
+			public void keyTyped(KeyEvent e) {
+				String caracteres = "0123456789.'";
+				if (!caracteres.contains(e.getKeyChar() + "")) {
+					e.consume();
+				}
+			}
+		});
 		txtBarcode.setBounds(10, 155, 131, 20);
 		getContentPane().add(txtBarcode);
-		txtBarcode.setDocument(new Validador(20));
+		txtBarcode.setDocument(new Validador(250));
 		txtBarcode.setColumns(10);
 
 		JLabel lblDescricao = new JLabel("Descrição:");
@@ -183,7 +201,7 @@ public class Produtos extends JDialog {
 		txtEstoque.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				String caracteres = "0123456789.',";
+				String caracteres = "0123456789";
 				if (!caracteres.contains(e.getKeyChar() + "")) {
 					e.consume();
 				}
@@ -203,7 +221,7 @@ public class Produtos extends JDialog {
 		txtEstoqueMin.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				String caracteres = "0123456789.',";
+				String caracteres = "0123456789";
 				if (!caracteres.contains(e.getKeyChar() + "")) {
 					e.consume();
 				}
@@ -289,20 +307,6 @@ public class Produtos extends JDialog {
 		btnLimpar.setBounds(345, 540, 64, 64);
 		getContentPane().add(btnLimpar);
 
-		btnBuscar = new JButton("");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PesquisarProduto();
-			}
-		});
-		btnBuscar.setIcon(new ImageIcon(Produtos.class.getResource("/img/pesquisar.png")));
-		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnBuscar.setToolTipText("Excluir");
-		btnBuscar.setContentAreaFilled(false);
-		btnBuscar.setBorder(null);
-		btnBuscar.setBounds(150, 25, 32, 32);
-		getContentPane().add(btnBuscar);
-
 		lblFoto = new JLabel("");
 		lblFoto.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		lblFoto.setIcon(new ImageIcon(Produtos.class.getResource("/img/camera.png")));
@@ -376,7 +380,7 @@ public class Produtos extends JDialog {
 		txtCusto.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				String caracteres = "0123456789.',";
+				String caracteres = "0123456789.";
 				if (!caracteres.contains(e.getKeyChar() + "")) {
 					e.consume();
 				}
@@ -392,10 +396,11 @@ public class Produtos extends JDialog {
 		getContentPane().add(lblLucro);
 
 		txtLucro = new JTextField();
+		txtLucro.setText("0");
 		txtLucro.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				String caracteres = "0123456789.',";
+				String caracteres = "0123456789.";
 				if (!caracteres.contains(e.getKeyChar() + "")) {
 					e.consume();
 				}
@@ -405,15 +410,15 @@ public class Produtos extends JDialog {
 		txtLucro.setBounds(200, 323, 131, 20);
 		getContentPane().add(txtLucro);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Fornecedores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(200, 354, 200, 70);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		panelFor = new JPanel();
+		panelFor.setBorder(new TitledBorder(null, "Fornecedores", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelFor.setBounds(200, 354, 200, 70);
+		getContentPane().add(panelFor);
+		panelFor.setLayout(null);
 
 		scrollPaneFor = new JScrollPane();
 		scrollPaneFor.setBounds(10, 40, 180, 25);
-		panel.add(scrollPaneFor);
+		panelFor.add(scrollPaneFor);
 		scrollPaneFor.setVisible(false);
 		scrollPaneFor.setBorder(null);
 
@@ -435,17 +440,17 @@ public class Produtos extends JDialog {
 			}
 		});
 		txtFornecedor.setBounds(10, 20, 180, 20);
-		panel.add(txtFornecedor);
+		panelFor.add(txtFornecedor);
 		txtFornecedor.setColumns(10);
 
 		lblIDFor = new JLabel("ID");
 		lblIDFor.setBounds(10, 46, 46, 14);
-		panel.add(lblIDFor);
+		panelFor.add(lblIDFor);
 
 		txtIDFor = new JTextField();
 		txtIDFor.setEditable(false);
 		txtIDFor.setBounds(25, 45, 80, 20);
-		panel.add(txtIDFor);
+		panelFor.add(txtIDFor);
 		txtIDFor.setColumns(10);
 
 		dateEntrada = new JDateChooser();
@@ -469,9 +474,165 @@ public class Produtos extends JDialog {
 				new String[] { "", "Unidade", "Peça", "Caixa", "Kilograma", "Grama", "Metro", "Centímetro" }));
 		cboUN.setBounds(10, 439, 131, 22);
 		getContentPane().add(cboUN);
+		
+		btnBuscar = new JButton("");
+		btnBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PesquisarProduto();
+			}
+		});
+		btnBuscar.setIcon(new ImageIcon(Produtos.class.getResource("/img/pesquisar.png")));
+		btnBuscar.setToolTipText("Buscar produto");
+		btnBuscar.setContentAreaFilled(false);
+		btnBuscar.setBorder(null);
+		btnBuscar.setBounds(150, 20, 32, 32);
+		getContentPane().add(btnBuscar);
 
 	} // Fim do construtor
-
+	
+	private void pesquisarProdutoBarcode() {
+		if (txtBarcode.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Preencha o código de barras!");
+			txtBarcode.requestFocus();
+		} else {
+			String readBarcode = "select * from produtos where barcode = ?";
+			try {
+				con = dao.conectar();
+				pst = con.prepareStatement(readBarcode);
+				pst.setString(1, txtBarcode.getText());
+				rs = pst.executeQuery();
+				if (rs.next()) {
+					txtCodigo.setText(rs.getString(1));
+					// area de texto deve ser utilizado getNString
+					txtaDescricao.setText(rs.getNString(3));
+					Blob blob = (Blob) rs.getBlob(4);
+					byte[] img = blob.getBytes(1, (int) blob.length());
+					BufferedImage imagem = null;
+					try {
+						imagem = ImageIO.read(new ByteArrayInputStream(img));
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+					ImageIcon icone = new ImageIcon(imagem);
+					Icon foto = new ImageIcon(icone.getImage().getScaledInstance(lblFoto.getWidth(),
+							lblFoto.getHeight(), Image.SCALE_SMOOTH));
+					lblFoto.setIcon(foto);
+					txtEstoque.setText(rs.getString(5));
+					txtEstoqueMin.setText(rs.getString(6));
+					cboUN.setSelectedItem(rs.getString(7));
+					txtLocal.setText(rs.getString(8));
+					txtNome.setText(rs.getString(9));
+					txtLote.setText(rs.getString(10));
+					txtFabricante.setText(rs.getString(11));
+					// Setar a data no JCalendar
+					// passo 1 receber a data do mysql
+					String setarDataEnt = rs.getString(12);
+					// passo 2 formatar a data para o jcalendar
+					Date dataEntrada = new SimpleDateFormat("yyyy-mm-dd").parse(setarDataEnt);
+					// passo 3 exibir o resultado no jcalendar
+					dateEntrada.setDate(dataEntrada);
+					String setarDataVal = rs.getString(13);
+					Date dataValidade = new SimpleDateFormat("yyyy-mm-dd").parse(setarDataVal);
+					dateValidade.setDate(dataValidade);
+					txtCusto.setText(rs.getString(14));
+					txtLucro.setText(rs.getString(15));
+					txtIDFor.setText(rs.getString(16));
+					produtoCadastrado = true;
+					btnBuscar.setEnabled(false);
+					btnCarregar.setEnabled(true);
+					btnExcluir.setEnabled(true);
+					btnBuscar.setEnabled(false);
+					dateValidade.setEnabled(false);
+					panelFor.setEnabled(false);
+					txtFornecedor.setEnabled(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Produto não encontrado ou cadastrado");
+					produtoCadastrado = false;
+					btnBuscar.setEnabled(false);
+					txtNome.requestFocus();
+					btnCarregar.setEnabled(true);
+					cboUN.setSelectedItem("");
+					btnBuscar.setEnabled(false);
+				}
+				con.close();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+	}
+	
+	private void PesquisarProduto() {
+			if (txtCodigo.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Preencha o código!");
+				txtCodigo.requestFocus();
+			} else {
+				String readCodigo = "select * from produtos where codigo = ?";
+				try {
+					con = dao.conectar();
+					pst = con.prepareStatement(readCodigo);
+					pst.setString(1, txtCodigo.getText());
+					rs = pst.executeQuery();
+					if (rs.next()) {
+						txtBarcode.setText(rs.getString(2));
+						// area de texto deve ser utilizado getNString
+						txtaDescricao.setText(rs.getNString(3));
+						Blob blob = (Blob) rs.getBlob(4);
+						byte[] img = blob.getBytes(1, (int) blob.length());
+						BufferedImage imagem = null;
+						try {
+							imagem = ImageIO.read(new ByteArrayInputStream(img));
+						} catch (Exception e) {
+							System.out.println(e);
+						}
+						ImageIcon icone = new ImageIcon(imagem);
+						Icon foto = new ImageIcon(icone.getImage().getScaledInstance(lblFoto.getWidth(),
+								lblFoto.getHeight(), Image.SCALE_SMOOTH));
+						lblFoto.setIcon(foto);
+						txtEstoque.setText(rs.getString(5));
+						txtEstoqueMin.setText(rs.getString(6));
+						cboUN.setSelectedItem(rs.getString(7));
+						txtLocal.setText(rs.getString(8));
+						txtNome.setText(rs.getString(9));
+						txtLote.setText(rs.getString(10));
+						txtFabricante.setText(rs.getString(11));
+						// Setar a data no JCalendar
+						// passo 1 receber a data do mysql
+						String setarDataEnt = rs.getString(12);
+						// passo 2 formatar a data para o jcalendar
+						Date dataEntrada = new SimpleDateFormat("yyyy-mm-dd").parse(setarDataEnt);
+						// passo 3 exibir o resultado no jcalendar
+						dateEntrada.setDate(dataEntrada);
+						String setarDataVal = rs.getString(13);
+						Date dataValidade = new SimpleDateFormat("yyyy-mm-dd").parse(setarDataVal);
+						dateValidade.setDate(dataValidade);
+						txtCusto.setText(rs.getString(14));
+						txtLucro.setText(rs.getString(15));
+						txtIDFor.setText(rs.getString(16));
+						produtoCadastrado = true;
+						btnBuscar.setEnabled(false);
+						btnCarregar.setEnabled(true);
+						btnExcluir.setEnabled(true);
+						btnBuscar.setEnabled(false);
+						dateValidade.setEnabled(false);
+						panelFor.setEnabled(false);
+						txtFornecedor.setEnabled(false);
+					} else {
+						JOptionPane.showMessageDialog(null, "Produto não encontrado ou cadastrado");
+						produtoCadastrado = false;
+						btnBuscar.setEnabled(false);
+						txtNome.requestFocus();
+						btnCarregar.setEnabled(true);
+						btnBuscar.setEnabled(false);
+						cboUN.setSelectedItem("");
+					}
+					con.close();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+			}
+	}
+	
 	private void listarFornecedor() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listFor.setModel(modelo);
@@ -506,9 +667,11 @@ public class Produtos extends JDialog {
 				if (rs.next()) {
 					scrollPaneFor.setVisible(false);
 					txtIDFor.setText(rs.getString(1));
+					txtFornecedor.setText(rs.getString(2));
 				} else {
 					JOptionPane.showMessageDialog(null, "Fornecedor inexistente");
 				}
+				
 				con.close();
 			} catch (Exception e) {
 				System.out.println(e);
@@ -517,7 +680,8 @@ public class Produtos extends JDialog {
 			scrollPaneFor.setVisible(false);
 		}
 	}
-
+	
+	
 	private void carregarFoto() {
 		JFileChooser jfc = new JFileChooser();
 		jfc.setDialogTitle("Selecionar arquivo");
@@ -544,61 +708,6 @@ public class Produtos extends JDialog {
 		}
 	}
 
-	private void PesquisarProduto() {
-		if (txtCodigo.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Preencha o código!");
-			txtCodigo.requestFocus();
-		} else {
-			String readCodigo = "select * from produtos where codigo = ?";
-			try {
-				con = dao.conectar();
-				pst = con.prepareStatement(readCodigo);
-				pst.setString(1, txtCodigo.getText());
-				rs = pst.executeQuery();
-				if (rs.next()) {
-					txtBarcode.setText(rs.getString(2));
-					// area de texto deve ser utilizado getNString
-					txtaDescricao.setText(rs.getNString(3));
-
-					txtEstoque.setText(rs.getString(5));
-					txtEstoqueMin.setText(rs.getString(6));
-					cboUN.setSelectedItem(rs.getString(7));
-					txtLocal.setText(rs.getString(8));
-					txtNome.setText(rs.getString(9));
-					txtLote.setText(rs.getString(10));
-					txtFabricante.setText(rs.getString(11));
-					// Setar a data no JCalendar
-					// passo 1 receber a data do mysql
-					String setarDataEnt = rs.getString(12);
-					// passo 2 formatar a data para o jcalendar
-					Date dataEntrada = new SimpleDateFormat("yyyy-mm-dd").parse(setarDataEnt);
-					// passo 3 exibir o resultado no jcalendar
-					dateEntrada.setDate(dataEntrada);
-					String setarDataVal = rs.getString(13);
-					Date dataValidade = new SimpleDateFormat("yyyy-mm-dd").parse(setarDataVal);
-					dateValidade.setDate(dataValidade);
-					txtCusto.setText(rs.getString(14));
-					txtLucro.setText(rs.getString(15));
-					txtIDFor.setText(rs.getString(16));
-					produtoCadastrado = true;
-					btnBuscar.setEnabled(false);
-					btnCarregar.setEnabled(true);
-					btnExcluir.setEnabled(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Produto não encontrado ou cadastrado");
-					produtoCadastrado = false;
-					btnBuscar.setEnabled(false);
-					txtNome.requestFocus();
-					btnCarregar.setEnabled(true);
-					cboUN.setSelectedItem("");
-				}
-				con.close();
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-		}
-	}
-
 	private void listarProdutos() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listPR.setModel(modelo);
@@ -619,7 +728,7 @@ public class Produtos extends JDialog {
 			System.out.println(e);
 		}
 	}
-
+	
 	private void buscarProdutoLista() {
 		int linha = listPR.getSelectedIndex();
 		if (linha >= 0) {
@@ -666,16 +775,19 @@ public class Produtos extends JDialog {
 					txtLucro.setText(rs.getString(15));
 					txtIDFor.setText(rs.getString(16));
 					produtoCadastrado = true;
-					btnBuscar.setEnabled(false);
 					btnCarregar.setEnabled(true);
 					btnExcluir.setEnabled(true);
+					dateValidade.setEnabled(false);
+					panelFor.setEnabled(false);
+					txtFornecedor.setEnabled(false);
+					btnBuscar.setEnabled(false);
 				} else {
 					JOptionPane.showMessageDialog(null, "Produto inexistente");
 					produtoCadastrado = false;
-					btnBuscar.setEnabled(false);
 					txtNome.requestFocus();
 					btnCarregar.setEnabled(true);
 					cboUN.setSelectedItem("");
+					btnBuscar.setEnabled(false);
 				}
 				con.close();
 			} catch (Exception e) {
@@ -699,7 +811,7 @@ public class Produtos extends JDialog {
 		txtLote.setText(null);
 		txtFabricante.setText(null);
 		txtCusto.setText(null);
-		txtLucro.setText(null);
+		txtLucro.setText("0");
 		txtFornecedor.setText(null);
 		txtIDFor.setText(null);
 		dateValidade.setDate(null);
@@ -709,8 +821,11 @@ public class Produtos extends JDialog {
 		btnAdicionar.setEnabled(false);
 		btnEditar.setEnabled(false);
 		btnExcluir.setEnabled(false);
-		btnBuscar.setEnabled(true);
+		txtFornecedor.setEnabled(true);
 		txtBarcode.requestFocus();
+		dateValidade.setEnabled(true);
+		panelFor.setEnabled(true);
+		btnBuscar.setEnabled(true);
 	}
 
 	private void Adicionar() {
@@ -809,27 +924,22 @@ public class Produtos extends JDialog {
 			JOptionPane.showMessageDialog(null, "Preencha qual será o fornecedor!");
 			txtIDFor.requestFocus();
 		} else {
-			String update = "update produtos set barcode =?,descricao=?,foto=?,estoque=?,estoquemin=?,unidade=?,localarm=?,nome=?,lote=?,fabricante=?,dataval=?,custo=?,lucro=?,idfor=? where codigo=?";
+			String update = "update produtos set descricao=?,foto=?,estoque=?,estoquemin=?,unidade=?,localarm=?,nome=?,lote=?,fabricante=?,custo=?,lucro=? where codigo=?";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(update);
-				pst.setString(1, txtBarcode.getText());
-				pst.setString(2, txtaDescricao.getText());
-				pst.setBlob(3, fis, tamanho);
-				pst.setString(4, txtEstoque.getText());
-				pst.setString(5, txtEstoqueMin.getText());
-				pst.setString(6, cboUN.getSelectedItem().toString());
-				pst.setString(7, txtLocal.getText());
-				pst.setString(8, txtNome.getText());
-				pst.setString(9, txtLote.getText());
-				pst.setString(10, txtFabricante.getText());
-				SimpleDateFormat formatador = new SimpleDateFormat("yyyyMMdd");
-				String dataFormatada = formatador.format(dateValidade.getDate());
-				pst.setString(11, dataFormatada);
-				pst.setString(12, txtCusto.getText());
-				pst.setString(13, txtLucro.getText());
-				pst.setString(14, txtIDFor.getText());
-				pst.setString(15, txtCodigo.getText());
+				pst.setString(1, txtaDescricao.getText());
+				pst.setBlob(2, fis, tamanho);
+				pst.setString(3, txtEstoque.getText());
+				pst.setString(4, txtEstoqueMin.getText());
+				pst.setString(5, cboUN.getSelectedItem().toString());
+				pst.setString(6, txtLocal.getText());
+				pst.setString(7, txtNome.getText());
+				pst.setString(8, txtLote.getText());
+				pst.setString(9, txtFabricante.getText());
+				pst.setString(10, txtCusto.getText());
+				pst.setString(11, txtLucro.getText());
+				pst.setString(12, txtCodigo.getText());
 				int confirma = pst.executeUpdate();
 				if (confirma == 1) {
 					JOptionPane.showMessageDialog(null, "Dados do produto alterados com sucesso");

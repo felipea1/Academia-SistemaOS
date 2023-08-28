@@ -80,14 +80,6 @@ public class Usuarios extends JDialog {
 	 * Create the dialog.
 	 */
 	public Usuarios() {
-		getContentPane().addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// clicar no painel do JDialog
-				scrollPane.setVisible(false);
-				txtNome.setText(null);
-			}
-		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/img/users4.png")));
 		setTitle("Target - Usuários");
 		setResizable(false);

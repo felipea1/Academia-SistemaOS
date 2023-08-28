@@ -51,12 +51,13 @@ public class Sobre extends JDialog {
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Autor: Felipe de Almeida Duarte");
-		lblNewLabel_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		lblNewLabel_1.setBounds(10, 59, 214, 14);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1.setBounds(10, 59, 254, 14);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Sob a licença MIT");
-		lblNewLabel_2.setBounds(301, 111, 112, 14);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_2.setBounds(291, 111, 112, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
@@ -90,8 +91,8 @@ public class Sobre extends JDialog {
 		getContentPane().add(lblGithub);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Redes sociais:");
-		lblNewLabel_1_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		lblNewLabel_1_1.setBounds(10, 204, 91, 14);
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1_1.setBounds(10, 204, 150, 14);
 		getContentPane().add(lblNewLabel_1_1);
 		
 		lblTextoGit = new JLabel("felipea1");
@@ -103,7 +104,7 @@ public class Sobre extends JDialog {
 		});
 		lblTextoGit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblTextoGit.setForeground(SystemColor.textHighlight);
-		lblTextoGit.setFont(new Font("Franklin Gothic Medium Cond", Font.PLAIN, 17));
+		lblTextoGit.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblTextoGit.setBounds(69, 244, 91, 20);
 		getContentPane().add(lblTextoGit);
 		
@@ -129,17 +130,17 @@ public class Sobre extends JDialog {
 			}
 		});
 		lblTextoInsta.setForeground(SystemColor.textHighlight);
-		lblTextoInsta.setFont(new Font("Franklin Gothic Medium Cond", Font.PLAIN, 17));
+		lblTextoInsta.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblTextoInsta.setBounds(69, 301, 91, 20);
 		getContentPane().add(lblTextoInsta);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Versão 5.0");
-		lblNewLabel_1_2.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
-		lblNewLabel_1_2.setBounds(10, 94, 104, 14);
+		JLabel lblNewLabel_1_2 = new JLabel("Versão definitiva");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblNewLabel_1_2.setBounds(10, 94, 192, 14);
 		getContentPane().add(lblNewLabel_1_2);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Repositório do projeto:");
-		lblNewLabel_1_1_1.setFont(new Font("Showcard Gothic", Font.PLAIN, 11));
+		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_1_1.setBounds(10, 140, 214, 14);
 		getContentPane().add(lblNewLabel_1_1_1);
 		
@@ -152,7 +153,7 @@ public class Sobre extends JDialog {
 		});
 		lblRepositorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblRepositorio.setForeground(SystemColor.textHighlight);
-		lblRepositorio.setFont(new Font("Franklin Gothic Medium Cond", Font.PLAIN, 17));
+		lblRepositorio.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblRepositorio.setBounds(10, 165, 107, 20);
 		getContentPane().add(lblRepositorio);
 	} //Fim do construtor

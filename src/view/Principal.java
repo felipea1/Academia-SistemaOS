@@ -63,6 +63,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setResizable(false);
 		setTitle("Target assistencia");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/img/run.png")));
 		addWindowListener(new WindowAdapter() {
@@ -74,7 +75,7 @@ public class Principal extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 760, 479);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -93,22 +94,22 @@ public class Principal extends JFrame {
 		btnUsuarios.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnUsuarios.setIcon(new ImageIcon(Principal.class.getResource("/img/users4.png")));
 		btnUsuarios.setToolTipText("Usuários");
-		btnUsuarios.setBounds(10, 11, 128, 128);
+		btnUsuarios.setBounds(100, 87, 128, 128);
 		contentPane.add(btnUsuarios);
 
 		panelRodape = new JPanel();
 		panelRodape.setBackground(new Color(0, 0, 0));
-		panelRodape.setBounds(0, 386, 748, 54);
+		panelRodape.setBounds(0, 507, 784, 54);
 		contentPane.add(panelRodape);
 		panelRodape.setLayout(null);
 
 		lblStatus = new JLabel("");
 		lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/bdoff.png")));
-		lblStatus.setBounds(706, 11, 32, 32);
+		lblStatus.setBounds(740, 11, 32, 32);
 		panelRodape.add(lblStatus);
 
 		lblData = new JLabel("");
-		lblData.setBounds(437, 11, 259, 30);
+		lblData.setBounds(431, 11, 300, 30);
 		panelRodape.add(lblData);
 		lblData.setForeground(SystemColor.text);
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -127,7 +128,7 @@ public class Principal extends JFrame {
 
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setIcon(new ImageIcon(Principal.class.getResource("/img/os2.png")));
-		lblLogo.setBounds(620, 257, 128, 128);
+		lblLogo.setBounds(650, 375, 128, 128);
 		contentPane.add(lblLogo);
 
 		JButton btnSobre = new JButton("");
@@ -144,7 +145,7 @@ public class Principal extends JFrame {
 		btnSobre.setToolTipText("Sobre");
 		btnSobre.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSobre.setIcon(new ImageIcon(Usuarios.class.getResource("/img/about.png")));
-		btnSobre.setBounds(686, 11, 48, 48);
+		btnSobre.setBounds(720, 11, 48, 48);
 		contentPane.add(btnSobre);
 		
 		JButton btnOrdemOS = new JButton("");
@@ -157,7 +158,7 @@ public class Principal extends JFrame {
 		btnOrdemOS.setIcon(new ImageIcon(Principal.class.getResource("/img/OrdemOS.png")));
 		btnOrdemOS.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnOrdemOS.setToolTipText("Ordem de Serviço");
-		btnOrdemOS.setBounds(200, 11, 128, 128);
+		btnOrdemOS.setBounds(300, 87, 128, 128);
 		contentPane.add(btnOrdemOS);
 		
 		btnRelatorio = new JButton("");
@@ -171,7 +172,7 @@ public class Principal extends JFrame {
 		btnRelatorio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRelatorio.setIcon(new ImageIcon(Principal.class.getResource("/img/relatorio.png")));
 		btnRelatorio.setToolTipText("Relátorios");
-		btnRelatorio.setBounds(10, 175, 128, 128);
+		btnRelatorio.setBounds(100, 250, 128, 128);
 		contentPane.add(btnRelatorio);
 		
 		JButton btnClientes = new JButton("");
@@ -185,7 +186,7 @@ public class Principal extends JFrame {
 		btnClientes.setIcon(new ImageIcon(Principal.class.getResource("/img/clientes.png")));
 		btnClientes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnClientes.setToolTipText("Clientes");
-		btnClientes.setBounds(200, 175, 128, 128);
+		btnClientes.setBounds(300, 250, 128, 128);
 		contentPane.add(btnClientes);
 		
 		JButton btnFornecedores = new JButton("");
@@ -198,7 +199,7 @@ public class Principal extends JFrame {
 		btnFornecedores.setIcon(new ImageIcon(Principal.class.getResource("/img/Fornecedores.png")));
 		btnFornecedores.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnFornecedores.setToolTipText("Fornecedores");
-		btnFornecedores.setBounds(400, 11, 128, 128);
+		btnFornecedores.setBounds(500, 87, 128, 128);
 		contentPane.add(btnFornecedores);
 		
 		JButton btnProdutos = new JButton("");
@@ -211,7 +212,7 @@ public class Principal extends JFrame {
 		btnProdutos.setIcon(new ImageIcon(Principal.class.getResource("/img/produtos.png")));
 		btnProdutos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnProdutos.setToolTipText("Produtos");
-		btnProdutos.setBounds(400, 175, 128, 128);
+		btnProdutos.setBounds(500, 250, 128, 128);
 		contentPane.add(btnProdutos);
 	}// fim do construtor
 
