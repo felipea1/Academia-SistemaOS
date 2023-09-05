@@ -25,27 +25,19 @@ import java.awt.Color;
 
 public class Principal extends JFrame {
 
-	// Instaciar objetos JDBC
 	DAO dao = new DAO();
 	private Connection con;
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblStatus;
 	private JLabel lblData;
 	private JLabel lblNomeUS;
-	// a label abaixo será alterada pela tela de "Login.java" (Por isso está publica)
 	public JLabel lblUsuario;
-	// o button abaixo será alterada pela tela de "Login.java" (Por isso está publica)
 	public JButton btnUsuarios;
 	public JButton btnRelatorio;
 	public JPanel panelRodape;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -59,9 +51,6 @@ public class Principal extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Principal() {
 		setResizable(false);
 		setTitle("Target assistencia");
@@ -69,7 +58,6 @@ public class Principal extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// evento ativar janela
 				status();
 				setarData();
 			}
@@ -86,7 +74,6 @@ public class Principal extends JFrame {
 		btnUsuarios.setEnabled(false);
 		btnUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// abrir tela de usuários
 				Usuarios usuarios = new Usuarios();
 				usuarios.setVisible(true);
 			}
@@ -99,43 +86,41 @@ public class Principal extends JFrame {
 
 		panelRodape = new JPanel();
 		panelRodape.setBackground(new Color(0, 0, 0));
-		panelRodape.setBounds(0, 507, 784, 54);
+		panelRodape.setBounds(0, 480, 784, 91);
 		contentPane.add(panelRodape);
 		panelRodape.setLayout(null);
 
 		lblStatus = new JLabel("");
 		lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/bdoff.png")));
-		lblStatus.setBounds(740, 11, 32, 32);
+		lblStatus.setBounds(740, 32, 32, 32);
 		panelRodape.add(lblStatus);
 
 		lblData = new JLabel("");
-		lblData.setBounds(431, 11, 300, 30);
+		lblData.setBounds(431, 32, 300, 30);
 		panelRodape.add(lblData);
 		lblData.setForeground(SystemColor.text);
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
+
 		lblNomeUS = new JLabel("Usuário:");
 		lblNomeUS.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNomeUS.setForeground(SystemColor.text);
-		lblNomeUS.setBounds(10, 11, 69, 32);
+		lblNomeUS.setBounds(10, 32, 69, 32);
 		panelRodape.add(lblNomeUS);
-		
+
 		lblUsuario = new JLabel("");
 		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblUsuario.setBounds(75, 11, 250, 32);
+		lblUsuario.setBounds(75, 32, 250, 32);
 		panelRodape.add(lblUsuario);
 
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setIcon(new ImageIcon(Principal.class.getResource("/img/os2.png")));
-		lblLogo.setBounds(650, 375, 128, 128);
+		lblLogo.setBounds(650, 350, 128, 128);
 		contentPane.add(lblLogo);
 
 		JButton btnSobre = new JButton("");
 		btnSobre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// clicar no botão sobre
-				// mostrar a janela sobre
 				Sobre sobre = new Sobre();
 				sobre.setVisible(true);
 			}
@@ -147,7 +132,7 @@ public class Principal extends JFrame {
 		btnSobre.setIcon(new ImageIcon(Usuarios.class.getResource("/img/about.png")));
 		btnSobre.setBounds(720, 11, 48, 48);
 		contentPane.add(btnSobre);
-		
+
 		JButton btnOrdemOS = new JButton("");
 		btnOrdemOS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,7 +145,7 @@ public class Principal extends JFrame {
 		btnOrdemOS.setToolTipText("Ordem de Serviço");
 		btnOrdemOS.setBounds(300, 87, 128, 128);
 		contentPane.add(btnOrdemOS);
-		
+
 		btnRelatorio = new JButton("");
 		btnRelatorio.setEnabled(false);
 		btnRelatorio.addActionListener(new ActionListener() {
@@ -174,11 +159,10 @@ public class Principal extends JFrame {
 		btnRelatorio.setToolTipText("Relátorios");
 		btnRelatorio.setBounds(100, 250, 128, 128);
 		contentPane.add(btnRelatorio);
-		
+
 		JButton btnClientes = new JButton("");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// abrir tela de usuários
 				Clientes clientes = new Clientes();
 				clientes.setVisible(true);
 			}
@@ -188,7 +172,7 @@ public class Principal extends JFrame {
 		btnClientes.setToolTipText("Clientes");
 		btnClientes.setBounds(300, 250, 128, 128);
 		contentPane.add(btnClientes);
-		
+
 		JButton btnFornecedores = new JButton("");
 		btnFornecedores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,7 +185,7 @@ public class Principal extends JFrame {
 		btnFornecedores.setToolTipText("Fornecedores");
 		btnFornecedores.setBounds(500, 87, 128, 128);
 		contentPane.add(btnFornecedores);
-		
+
 		JButton btnProdutos = new JButton("");
 		btnProdutos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -214,38 +198,25 @@ public class Principal extends JFrame {
 		btnProdutos.setToolTipText("Produtos");
 		btnProdutos.setBounds(500, 250, 128, 128);
 		contentPane.add(btnProdutos);
-	}// fim do construtor
+	}
 
-	/**
-	 * Método responsável por exibir o status da conexão
-	 */
 	private void status() {
 		try {
-			// abrir a conexão
 			con = dao.conectar();
 			if (con == null) {
-				// System.out.println("Erro de conexão");
 				lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/bdoff.png")));
 			} else {
-				// System.out.println("Banco conectado");
 				lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/bdon.png")));
 			}
-			// NUNCA esquecer de fechar a conexão
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}// fim do método status()
+	}
 
-	/**
-	 * Método responsável por setar a data no rodapé
-	 */
 	private void setarData() {
-		// criar objeto para trazer a data do sistema
 		Date data = new Date();
-		// criar objeto para formatar a data
 		DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
-		// alterar o texto da label pela data atual formatada
 		lblData.setText(formatador.format(data));
 	}
 }

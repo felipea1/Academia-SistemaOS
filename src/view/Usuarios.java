@@ -32,18 +32,15 @@ import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
+import java.awt.Font;
 
 public class Usuarios extends JDialog {
 
-	// Instanciar objetos JDBC
 	DAO dao = new DAO();
 	private Connection con;
 	private PreparedStatement pst;
 	private ResultSet rs;
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtID;
 	private JTextField txtNome;
@@ -58,10 +55,8 @@ public class Usuarios extends JDialog {
 	private JLabel lblPerfil;
 	private JComboBox cboUF;
 	private JCheckBox chckbxSenha;
+	private JLabel lblNewLabel_5;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -76,21 +71,18 @@ public class Usuarios extends JDialog {
 		});
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public Usuarios() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/img/users4.png")));
 		setTitle("Target - Usuários");
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 500, 381);
+		setBounds(100, 100, 800, 600);
 		getContentPane().setLayout(null);
 
 		scrollPane = new JScrollPane();
 		scrollPane.setVisible(false);
 		scrollPane.setBorder(null);
-		scrollPane.setBounds(83, 121, 263, 80);
+		scrollPane.setBounds(100, 227, 320, 62);
 		getContentPane().add(scrollPane);
 
 		listUsers = new JList();
@@ -104,21 +96,26 @@ public class Usuarios extends JDialog {
 		scrollPane.setViewportView(listUsers);
 
 		JLabel lblNewLabel = new JLabel("ID:");
-		lblNewLabel.setBounds(26, 11, 46, 14);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setBounds(26, 11, 46, 20);
 		getContentPane().add(lblNewLabel);
 
 		txtID = new JTextField();
+		txtID.setForeground(new Color(0, 204, 51));
+		txtID.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtID.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtID.setEditable(false);
-		txtID.setBounds(83, 8, 86, 20);
+		txtID.setBounds(100, 10, 100, 32);
 		getContentPane().add(txtID);
 		txtID.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Nome:");
-		lblNewLabel_1.setBounds(26, 100, 46, 14);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_1.setBounds(26, 200, 113, 20);
 		getContentPane().add(lblNewLabel_1);
 
 		txtNome = new JTextField();
+		txtNome.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtNome.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		txtNome.addKeyListener(new KeyAdapter() {
 			@Override
@@ -126,10 +123,9 @@ public class Usuarios extends JDialog {
 				listarUsuarios();
 			}
 		});
-		txtNome.setBounds(82, 100, 263, 21);
+		txtNome.setBounds(100, 200, 320, 32);
 		getContentPane().add(txtNome);
 		txtNome.setColumns(10);
-		// uso do validador para limitar o número de caracteres
 		txtNome.setDocument(new Validador(50));
 
 		btnPesquisar = new JButton("");
@@ -145,23 +141,25 @@ public class Usuarios extends JDialog {
 		});
 		getRootPane().setDefaultButton(btnPesquisar);
 
-		btnPesquisar.setBounds(370, 45, 32, 32);
+		btnPesquisar.setBounds(432, 100, 32, 32);
 		getContentPane().add(btnPesquisar);
 
 		JLabel lblNewLabel_2 = new JLabel("Login:");
-		lblNewLabel_2.setBounds(26, 50, 46, 14);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_2.setBounds(26, 100, 60, 20);
 		getContentPane().add(lblNewLabel_2);
 
 		txtLogin = new JTextField();
+		txtLogin.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtLogin.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtLogin.setBounds(82, 50, 264, 20);
+		txtLogin.setBounds(100, 100, 320, 32);
 		getContentPane().add(txtLogin);
 		txtLogin.setColumns(10);
-		// uso do validador para limitar o número de caracteres
 		txtLogin.setDocument(new Validador(15));
 
 		JLabel lblNewLabel_3 = new JLabel("Senha:");
-		lblNewLabel_3.setBounds(26, 150, 46, 14);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel_3.setBounds(26, 300, 100, 20);
 		getContentPane().add(lblNewLabel_3);
 
 		JButton btnLimpar = new JButton("");
@@ -175,14 +173,14 @@ public class Usuarios extends JDialog {
 		btnLimpar.setBorder(null);
 		btnLimpar.setIcon(new ImageIcon(Usuarios.class.getResource("/img/eraser.png")));
 		btnLimpar.setToolTipText("Limpar");
-		btnLimpar.setBounds(319, 270, 64, 64);
+		btnLimpar.setBounds(500, 490, 64, 64);
 		getContentPane().add(btnLimpar);
 
 		txtSenha = new JPasswordField();
+		txtSenha.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtSenha.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		txtSenha.setBounds(82, 150, 263, 20);
+		txtSenha.setBounds(100, 300, 320, 32);
 		getContentPane().add(txtSenha);
-		// uso do validador para limitar o número de caracteres
 		txtSenha.setDocument(new Validador(250));
 
 		btnAdicionar = new JButton("");
@@ -197,7 +195,7 @@ public class Usuarios extends JDialog {
 		btnAdicionar.setToolTipText("Adicionar Usuario");
 		btnAdicionar.setContentAreaFilled(false);
 		btnAdicionar.setBorder(null);
-		btnAdicionar.setBounds(83, 270, 64, 64);
+		btnAdicionar.setBounds(200, 490, 64, 64);
 		getContentPane().add(btnAdicionar);
 
 		btnEditar = new JButton("");
@@ -216,7 +214,7 @@ public class Usuarios extends JDialog {
 		btnEditar.setToolTipText("Editar");
 		btnEditar.setContentAreaFilled(false);
 		btnEditar.setBorder(null);
-		btnEditar.setBounds(172, 270, 64, 64);
+		btnEditar.setBounds(300, 490, 64, 64);
 		getContentPane().add(btnEditar);
 
 		btnExcluir = new JButton("");
@@ -231,20 +229,24 @@ public class Usuarios extends JDialog {
 		});
 		btnExcluir.setIcon(new ImageIcon(Usuarios.class.getResource("/img/excluir3.png")));
 		btnExcluir.setToolTipText("Excluir");
-		btnExcluir.setBounds(245, 270, 64, 64);
+		btnExcluir.setBounds(400, 490, 64, 64);
 		getContentPane().add(btnExcluir);
 
 		lblPerfil = new JLabel("Perfil:");
-		lblPerfil.setBounds(26, 220, 46, 14);
+		lblPerfil.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblPerfil.setBounds(26, 400, 60, 20);
 		getContentPane().add(lblPerfil);
 
 		cboUF = new JComboBox();
+		cboUF.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		cboUF.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cboUF.setModel(new DefaultComboBoxModel(new String[] { "", "admin", "user" }));
-		cboUF.setBounds(83, 220, 67, 22);
+		cboUF.setBounds(100, 400, 140, 32);
 		getContentPane().add(cboUF);
 
 		chckbxSenha = new JCheckBox("Alterar senha");
+		chckbxSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		chckbxSenha.setFont(new Font("Tahoma", Font.BOLD, 17));
 		chckbxSenha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (chckbxSenha.isSelected()) {
@@ -253,32 +255,32 @@ public class Usuarios extends JDialog {
 					txtSenha.setBackground(Color.YELLOW);
 				} else {
 					txtSenha.setBackground(Color.white);
-				}				
+				}
 			}
 		});
-		chckbxSenha.setBounds(26, 178, 143, 23);
+		chckbxSenha.setBounds(432, 300, 171, 32);
 		getContentPane().add(chckbxSenha);
-	}// fim do construtor
 
-	/*
-	 * metódo usado para listar o nome dos usuarios na lista
-	 */
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setOpaque(true);
+		lblNewLabel_4.setBackground(new Color(128, 64, 64));
+		lblNewLabel_4.setBounds(0, 480, 784, 91);
+		getContentPane().add(lblNewLabel_4);
+
+		lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setIcon(new ImageIcon(Usuarios.class.getResource("/img/os2.png")));
+		lblNewLabel_5.setBounds(650, 350, 128, 128);
+		getContentPane().add(lblNewLabel_5);
+	}
+
 	private void listarUsuarios() {
-		// a linha abaixo cria um objeto usando como referência um voltar dinamico
-		// entre objeto irá temporariamente armazenar as coisas
 		DefaultListModel<String> modelo = new DefaultListModel<>();
-		// setar o modelo (vetor na linha)
 		listUsers.setModel(modelo);
-		// Query (instrução sql)
 		String readLista = "select * from usuarios where nome like '" + txtNome.getText() + "%'" + "order by nome";
 		try {
-			// abrir a conexão
 			con = dao.conectar();
-			// preparar a query instrução sql
 			pst = con.prepareStatement(readLista);
-			// executar a query e trazer o resultado para lista
 			rs = pst.executeQuery();
-			// uso do while para trazer os usuários enquanto existir
 			while (rs.next()) {
 				scrollPane.setVisible(true);
 				modelo.addElement(rs.getString(2));
@@ -292,29 +294,17 @@ public class Usuarios extends JDialog {
 		}
 	}
 
-	/*
-	 * Método que busca o usuário selecionado da lista
-	 */
 	private void buscarUsuarioLista() {
-		// System.out.println("teste");
-		// variável que captura o índice da linha da lista
 		int linha = listUsers.getSelectedIndex();
 		if (linha >= 0) {
-			// Query (instrução sql)
-			// limit (0,1) -> seleciona o índice 0 e 1 usuário da lista
 			String readListaUsuario = "select * from usuarios where nome like '" + txtNome.getText() + "%'"
 					+ "order by nome limit " + (linha) + " , 1";
 			try {
-				// abrir a conexão
 				con = dao.conectar();
-				// preparar a query para execução
 				pst = con.prepareStatement(readListaUsuario);
-				// executar e obter o resultado
 				rs = pst.executeQuery();
 				if (rs.next()) {
-					// esconder a lista
 					scrollPane.setVisible(false);
-					// setar os campos
 					txtID.setText(rs.getString(1));
 					txtNome.setText(rs.getString(2));
 					txtLogin.setText(rs.getString(3));
@@ -327,20 +317,15 @@ public class Usuarios extends JDialog {
 					JOptionPane.showMessageDialog(null, "Usuário inexistente");
 					txtLogin.requestFocus();
 				}
-				// fechar a conexão
 				con.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		} else {
-			// se não existir no banco um usuário da lista
 			scrollPane.setVisible(false);
 		}
 	}
 
-	/**
-	 * Método usado para buscar um usuário no banco
-	 */
 	private void buscarUsuario() {
 		String read = "select * from usuarios where login = ?";
 		try {
@@ -384,7 +369,6 @@ public class Usuarios extends JDialog {
 	}
 
 	private void adicionar() {
-		// criar uma váriavel para capturar a senha
 		String capturarSenha = new String(txtSenha.getPassword());
 
 		if (txtNome.getText().isEmpty()) {
@@ -404,7 +388,6 @@ public class Usuarios extends JDialog {
 			String create = "insert into usuarios(nome,login,senha,perfil) values (?,?,md5(?),?)";
 			try {
 				con = dao.conectar();
-				// preparar a execução da query(instrução sql - CRUD Create)
 				pst = con.prepareStatement(create);
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtLogin.getText());
@@ -421,11 +404,8 @@ public class Usuarios extends JDialog {
 	}
 
 	private void editarUsuarios() {
-		// criar uma váriavel para capturar a senha
 		String capturarSenha = new String(txtSenha.getPassword());
 
-		// System.out.println("Teste do botão editar");
-		// validação dos campos obrigátorios
 		if (txtNome.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Digite o Nome do Usuário!");
 			txtNome.requestFocus();
@@ -439,38 +419,28 @@ public class Usuarios extends JDialog {
 			JOptionPane.showMessageDialog(null, "Preencha o perfil do Usuario");
 			cboUF.requestFocus();
 		} else {
-			// CRUD-Update
 			String update = "update usuarios set nome =?,login=?,senha=md5(?), perfil=? where id=?";
-			// tratamento de exceções
 			try {
 				con = dao.conectar();
-				// preparar a query
 				pst = con.prepareStatement(update);
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtLogin.getText());
 				pst.setString(3, capturarSenha);
 				pst.setString(4, cboUF.getSelectedItem().toString());
 				pst.setString(5, txtID.getText());
-				// executar a query
 				pst.executeUpdate();
-				// Confirmar para o usuario
 				JOptionPane.showMessageDialog(null, "Dados do usuario editados com sucesso.");
-				// limpar os campos
 				LimparCampos();
-				// fechar a conexão
 				con.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
-	}// Editar usuarios
+	}
 
 	private void editarUsuariosExcetoSenha() {
-		// criar uma váriavel para capturar a senha
 		String capturarSenha = new String(txtSenha.getPassword());
 
-		// System.out.println("Teste do botão editar");
-		// validação dos campos obrigátorios
 		if (txtNome.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Digite o Nome do Usuário!");
 			txtNome.requestFocus();
@@ -481,30 +451,23 @@ public class Usuarios extends JDialog {
 			JOptionPane.showMessageDialog(null, "Preencha o perfil do Usuario");
 			cboUF.requestFocus();
 		} else {
-			// CRUD-Update
 			String update2 = "update usuarios set nome =?,login=?, perfil=? where id=?";
-			// tratamento de exceções
 			try {
 				con = dao.conectar();
-				// preparar a query
 				pst = con.prepareStatement(update2);
 				pst.setString(1, txtNome.getText());
 				pst.setString(2, txtLogin.getText());
 				pst.setString(3, cboUF.getSelectedItem().toString());
 				pst.setString(4, txtID.getText());
-				// executar a query
 				pst.executeUpdate();
-				// Confirmar para o usuario
 				JOptionPane.showMessageDialog(null, "Dados do usuario editados com sucesso.");
-				// limpar os campos
 				LimparCampos();
-				// fechar a conexão
 				con.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
-	}// Editar usuarios
+	}
 
 	private void excluirContato() {
 		int confirmar = JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o contato?", "Atenção",
@@ -512,23 +475,16 @@ public class Usuarios extends JDialog {
 		if (confirmar == JOptionPane.YES_OPTION) {
 			String delete = "delete from usuarios where id=?";
 			try {
-				// abrir conexão
 				con = dao.conectar();
-				// preencher a query
 				pst = con.prepareStatement(delete);
-				// atribuir a ? pelo o id do contato
 				pst.setString(1, txtID.getText());
-				// executar a query
 				pst.executeUpdate();
-				// Limpar campos
 				LimparCampos();
-				// exibir uma mensagem ao usuario
 				JOptionPane.showMessageDialog(null, "Usuario excluido!");
-				// fechar conexão
 				con.close();
 			} catch (Exception e) {
 				System.out.println(e);
 			}
 		}
 	}
-}// fim do código
+}

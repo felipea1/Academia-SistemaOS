@@ -28,16 +28,13 @@ import java.awt.Toolkit;
 import java.awt.Color;
 
 public class Login extends JFrame {
-	// Objetos JOBC
 	DAO dao = new DAO();
 	private Connection con;
 	private PreparedStatement pst;
 	private ResultSet rs;
-	// objeto tela principal
+
 	Principal principal = new Principal();
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtLogin;
@@ -45,9 +42,6 @@ public class Login extends JFrame {
 	private JLabel lblData;
 	private JLabel lblStatus;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,9 +55,6 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/img/9071369_dumbbell_icon.png")));
 		setResizable(false);
@@ -71,7 +62,6 @@ public class Login extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// evento ativar janela
 				status();
 				setarData();
 			}
@@ -113,7 +103,6 @@ public class Login extends JFrame {
 		btnAcessar.setBounds(304, 150, 89, 23);
 		contentPane.add(btnAcessar);
 
-		// Substituir o clique pela a tecla enter
 		getRootPane().setDefaultButton(btnAcessar);
 
 		JPanel panel = new JPanel();
@@ -133,46 +122,29 @@ public class Login extends JFrame {
 		panel.add(lblData);
 		lblData.setBackground(new Color(255, 255, 255));
 		lblData.setFont(new Font("Tahoma", Font.PLAIN, 16));
-	}// Fim do construtor
+	}
 
-	/**
-	 * Metódo responsável por exibir o status da conexão
-	 */
 	private void status() {
 		try {
-			// abrir a conexão
 			con = dao.conectar();
 			if (con == null) {
-				// System.out.println("Erro de conexão");
 				lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/bdoff.png")));
 			} else {
-				// System.out.println("Banco conectado");
 				lblStatus.setIcon(new ImageIcon(Principal.class.getResource("/img/bdon.png")));
 			}
-			// NUNCA esquecer de fechar a conexão
 			con.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	} // Fim do metódo status
+	}
 
-	/**
-	 * Metódo respnsável por setar a data no rodapé
-	 */
 	private void setarData() {
-		// criar objeto para trazer a data do sistema
 		Date data = new Date();
-		// criar objeto para formatar a data
 		DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
-		// alterar o texto da label pela data atual formatada
 		lblData.setText(formatador.format(data));
 	}
 
-	/**
-	 * Método para autenticar um usuário
-	 */
 	private void logar() {
-		// criar uma váriavel para capturar a senha
 		String capturarSenha = new String(txtSenha.getPassword());
 
 		if (txtLogin.getText().isEmpty()) {
@@ -182,7 +154,6 @@ public class Login extends JFrame {
 			JOptionPane.showMessageDialog(null, "Preencha a Senha!");
 			txtSenha.requestFocus();
 		} else {
-			// Logica principal
 			String read = "select * from usuarios where login=? and senha=md5(?)";
 			try {
 				con = dao.conectar();
@@ -191,28 +162,17 @@ public class Login extends JFrame {
 				pst.setString(2, capturarSenha);
 				rs = pst.executeQuery();
 				if (rs.next()) {
-					// Capturar o perfil do usuário
-					// System.out.println(rs.getString(5)); //apoio a lógica
-					// tratamento do perfil do usuário
 					String perfil = rs.getString(5);
 					if (perfil.equals("admin")) {
-						// logar -> acessar a tela principal
 						principal.setVisible(true);
-						// setar a label da tela principal com o nome do usuário
 						principal.lblUsuario.setText(rs.getString(2));
-						// habilitar os botões
 						principal.btnRelatorio.setEnabled(true);
 						principal.btnUsuarios.setEnabled(true);
-						// mudar a cor do rodapé
 						principal.panelRodape.setBackground(new Color(136, 0, 21));
-						// fechar a tela de login
 						this.dispose();
 					} else {
-						// logar -> acessar a tela principal
 						principal.setVisible(true);
-						// setar a label da tela principal com o nome do usuário
 						principal.lblUsuario.setText(rs.getString(2));
-						// fechar a tela de login
 						this.dispose();
 					}
 				} else {
@@ -224,4 +184,4 @@ public class Login extends JFrame {
 			}
 		}
 	}
-}// Fim do código
+}

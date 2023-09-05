@@ -46,9 +46,6 @@ public class Fornecedores extends JDialog {
 	private PreparedStatement pst;
 	private ResultSet rs;
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtID;
 	private JTextField txtFone;
@@ -78,9 +75,6 @@ public class Fornecedores extends JDialog {
 	private JTextField txtIE;
 	private JLabel lblNewLabel;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -95,9 +89,6 @@ public class Fornecedores extends JDialog {
 		});
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public Fornecedores() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Fornecedores.class.getResource("/img/Fornecedores.png")));
 		setTitle("Fornecedores");
@@ -189,7 +180,7 @@ public class Fornecedores extends JDialog {
 				buscarCep();
 			}
 		});
-		btnBuscarCep.setBounds(740, 80, 32, 32);
+		btnBuscarCep.setBounds(735, 85, 32, 32);
 		getContentPane().add(btnBuscarCep);
 
 		JLabel lblEnd = new JLabel("Endereço:");
@@ -267,7 +258,7 @@ public class Fornecedores extends JDialog {
 		btnAdicionar.setContentAreaFilled(false);
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setBorder(null);
-		btnAdicionar.setBounds(50, 490, 64, 64);
+		btnAdicionar.setBounds(200, 490, 64, 64);
 		getContentPane().add(btnAdicionar);
 
 		btnEditar = new JButton("");
@@ -282,7 +273,7 @@ public class Fornecedores extends JDialog {
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setContentAreaFilled(false);
 		btnEditar.setBorder(null);
-		btnEditar.setBounds(150, 490, 64, 64);
+		btnEditar.setBounds(300, 490, 64, 64);
 		getContentPane().add(btnEditar);
 
 		JButton btnLimpar = new JButton("");
@@ -297,7 +288,7 @@ public class Fornecedores extends JDialog {
 		btnLimpar.setContentAreaFilled(false);
 		btnLimpar.setBorderPainted(false);
 		btnLimpar.setBorder(null);
-		btnLimpar.setBounds(346, 490, 64, 64);
+		btnLimpar.setBounds(500, 490, 64, 64);
 		getContentPane().add(btnLimpar);
 
 		btnExcluir = new JButton("");
@@ -312,14 +303,14 @@ public class Fornecedores extends JDialog {
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setContentAreaFilled(false);
 		btnExcluir.setBorder(null);
-		btnExcluir.setBounds(250, 490, 64, 64);
+		btnExcluir.setBounds(400, 490, 64, 64);
 		getContentPane().add(btnExcluir);
 
 		cboUf = new JComboBox();
 		cboUf.setModel(new DefaultComboBoxModel(
 				new String[] { "", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA",
 						"PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-		cboUf.setBounds(500, 326, 90, 22);
+		cboUf.setBounds(500, 326, 70, 22);
 		getContentPane().add(cboUf);
 
 		JLabel lblFantasia = new JLabel("Fantasia:");
@@ -366,12 +357,18 @@ public class Fornecedores extends JDialog {
 		txtIE.setColumns(10);
 		txtIE.setBounds(130, 370, 220, 20);
 		getContentPane().add(txtIE);
-		
+
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Fornecedores.class.getResource("/img/os2.png")));
-		lblNewLabel.setBounds(644, 422, 128, 128);
+		lblNewLabel.setBounds(650, 350, 128, 128);
 		getContentPane().add(lblNewLabel);
-	} // Fim do construtor
+
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setOpaque(true);
+		lblNewLabel_4.setBackground(new Color(128, 64, 64));
+		lblNewLabel_4.setBounds(0, 480, 784, 91);
+		getContentPane().add(lblNewLabel_4);
+	}
 
 	private void listar() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
@@ -650,4 +647,4 @@ public class Fornecedores extends JDialog {
 			}
 		}
 	}
-} // Fim do código
+}
