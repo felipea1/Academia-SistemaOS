@@ -46,6 +46,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
 
+@SuppressWarnings("unused")
 public class Servicos extends JDialog {
 
 	DAO dao = new DAO();
@@ -65,6 +66,7 @@ public class Servicos extends JDialog {
 	private JButton btnExcluir;
 	private JTextField txtCliente;
 	private JScrollPane scrollPane;
+	@SuppressWarnings("rawtypes")
 	private JList listCli;
 	private JButton btnOS;
 	private JLabel lblNewLabel;
@@ -92,6 +94,7 @@ public class Servicos extends JDialog {
 		});
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Servicos() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Servicos.class.getResource("/img/OrdemOS.png")));
@@ -152,7 +155,7 @@ public class Servicos extends JDialog {
 		btnBuscar.setContentAreaFilled(false);
 		btnBuscar.setBorder(null);
 		btnBuscar.setBorderPainted(false);
-		btnBuscar.setIcon(new ImageIcon(Servicos.class.getResource("/img/buscarCli.png")));
+		btnBuscar.setIcon(new ImageIcon(Servicos.class.getResource("/img/pesquisar.png")));
 		btnBuscar.setBounds(300, 50, 32, 32);
 		getContentPane().add(btnBuscar);
 
@@ -198,7 +201,7 @@ public class Servicos extends JDialog {
 		btnAdicionar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionar.setContentAreaFilled(false);
 		btnAdicionar.setBorder(null);
-		btnAdicionar.setIcon(new ImageIcon(Servicos.class.getResource("/img/adicionarCli.png")));
+		btnAdicionar.setIcon(new ImageIcon(Servicos.class.getResource("/img/adicionar.png")));
 		btnAdicionar.setBounds(150, 490, 64, 64);
 		getContentPane().add(btnAdicionar);
 
@@ -213,7 +216,7 @@ public class Servicos extends JDialog {
 		btnEditar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEditar.setContentAreaFilled(false);
 		btnEditar.setBorder(null);
-		btnEditar.setIcon(new ImageIcon(Servicos.class.getResource("/img/editarCli.png")));
+		btnEditar.setIcon(new ImageIcon(Servicos.class.getResource("/img/editar4.png")));
 		btnEditar.setBounds(250, 490, 64, 64);
 		getContentPane().add(btnEditar);
 
@@ -228,7 +231,7 @@ public class Servicos extends JDialog {
 		btnExcluir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluir.setContentAreaFilled(false);
 		btnExcluir.setBorder(null);
-		btnExcluir.setIcon(new ImageIcon(Servicos.class.getResource("/img/deletarCli.png")));
+		btnExcluir.setIcon(new ImageIcon(Servicos.class.getResource("/img/excluir3.png")));
 		btnExcluir.setBounds(350, 490, 64, 64);
 		getContentPane().add(btnExcluir);
 
@@ -373,6 +376,7 @@ public class Servicos extends JDialog {
 		getContentPane().add(txtaDiagnostico);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void listarClientes() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listCli.setModel(modelo);
@@ -573,7 +577,7 @@ public class Servicos extends JDialog {
 				pst.setString(1, txtOS.getText());
 				pst.executeUpdate();
 				LimparCampos();
-				JOptionPane.showMessageDialog(null, "Cliente excluido!");
+				JOptionPane.showMessageDialog(null, "OS excluida com sucesso!");
 				con.close();
 			} catch (Exception e) {
 				System.out.println(e);
@@ -688,7 +692,7 @@ public class Servicos extends JDialog {
 								"_______________________________                      _______________________________"));
 						document.add(new Paragraph(" ‎"));
 						document.add(new Paragraph(
-								"Assinatura do cliente                                            Assinatura do técnico responsável"));
+								"           Assinatura do cliente                                            Assinatura do técnico responsável"));
 						document.add(new Paragraph(" ‎"));
 						document.add(new Paragraph(" ‎"));
 

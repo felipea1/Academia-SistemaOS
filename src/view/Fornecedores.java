@@ -39,6 +39,7 @@ import utils.Validador;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("unused")
 public class Fornecedores extends JDialog {
 
 	DAO dao = new DAO();
@@ -57,11 +58,13 @@ public class Fornecedores extends JDialog {
 	private JTextField txtCnpj;
 	private JTextField txtCidade;
 	private JTextField txtComplemento;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cboUf;
 	private JButton btnBuscarCep;
 	private JButton btnAdicionar;
 	private JButton btnEditar;
 	private JButton btnExcluir;
+	@SuppressWarnings("rawtypes")
 	private JList listCli;
 	private JScrollPane scrollPane;
 	private JTextField txtFantasia;
@@ -89,6 +92,7 @@ public class Fornecedores extends JDialog {
 		});
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Fornecedores() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Fornecedores.class.getResource("/img/Fornecedores.png")));
 		setTitle("Fornecedores");
@@ -370,6 +374,7 @@ public class Fornecedores extends JDialog {
 		getContentPane().add(lblNewLabel_4);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void listar() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listCli.setModel(modelo);

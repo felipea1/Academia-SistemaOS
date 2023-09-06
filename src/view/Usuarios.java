@@ -34,6 +34,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import java.awt.Font;
 
+@SuppressWarnings("unused")
 public class Usuarios extends JDialog {
 
 	DAO dao = new DAO();
@@ -50,9 +51,11 @@ public class Usuarios extends JDialog {
 	private JButton btnEditar;
 	private JButton btnExcluir;
 	private JButton btnPesquisar;
+	@SuppressWarnings("rawtypes")
 	private JList listUsers;
 	private JScrollPane scrollPane;
 	private JLabel lblPerfil;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cboUF;
 	private JCheckBox chckbxSenha;
 	private JLabel lblNewLabel_5;
@@ -71,6 +74,7 @@ public class Usuarios extends JDialog {
 		});
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Usuarios() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Usuarios.class.getResource("/img/users4.png")));
 		setTitle("Target - Usuários");
@@ -273,6 +277,7 @@ public class Usuarios extends JDialog {
 		getContentPane().add(lblNewLabel_5);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void listarUsuarios() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listUsers.setModel(modelo);

@@ -41,6 +41,7 @@ import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+@SuppressWarnings("unused")
 public class Clientes extends JDialog {
 	DAO dao = new DAO();
 	private Connection con;
@@ -66,9 +67,11 @@ public class Clientes extends JDialog {
 	private JLabel lblUF;
 	private JLabel lblComplemento;
 	private JTextField txtComplemento;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cboUf;
 	private JButton btnBuscarCep;
 	private JScrollPane scrollPane;
+	@SuppressWarnings("rawtypes")
 	private JList listCli;
 	private JTextField txtCpfeCnpj;
 
@@ -86,6 +89,7 @@ public class Clientes extends JDialog {
 		});
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Clientes() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Clientes.class.getResource("/img/clientes.png")));
 		setModal(true);
@@ -331,6 +335,7 @@ public class Clientes extends JDialog {
 		getContentPane().add(txtCpfeCnpj);
 	}
 
+	@SuppressWarnings("unchecked")
 	private void listarClientes() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listCli.setModel(modelo);
@@ -507,8 +512,8 @@ public class Clientes extends JDialog {
 				pst.setString(8, txtCidade.getText());
 				pst.setString(9, cboUf.getSelectedItem().toString());
 				pst.setString(10, txtEmail.getText());
-				pst.setString(11, txtID.getText());
-				pst.setString(12, txtCpfeCnpj.getText());
+				pst.setString(11, txtCpfeCnpj.getText());
+				pst.setString(12, txtID.getText());
 				pst.executeUpdate();
 				JOptionPane.showMessageDialog(null, "Dados do cliente editados com sucesso!");
 				LimparCampos();
@@ -536,7 +541,7 @@ public class Clientes extends JDialog {
 				LimparCampos();
 				con.close();
 			} catch (java.sql.SQLIntegrityConstraintViolationException e) {
-				JOptionPane.showMessageDialog(null, "Cliente não editado, ele está vinculado a um serviço!");
+				JOptionPane.showMessageDialog(null, "Cliente não excluido, ele está vinculado a um serviço!");
 			} catch (Exception e1) {
 				System.out.println(e1);
 			}

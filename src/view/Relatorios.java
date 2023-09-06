@@ -35,6 +35,7 @@ import java.awt.Font;
 import java.awt.Panel;
 import java.awt.Color;
 
+@SuppressWarnings("unused")
 public class Relatorios extends JDialog {
 
 	DAO dao = new DAO();
@@ -301,31 +302,25 @@ public class Relatorios extends JDialog {
 			document.add(new Paragraph(formatador.format(dataRelatorio)));
 			document.add(new Paragraph("reposição:"));
 			document.add(new Paragraph(" "));
-			String readServicos = "select servicos.os,servicos.dataos,servicos.equipamento,servicos.defeito,servicos.valor,clientes.nome from servicos inner join clientes on servicos.idcli = clientes.idcli";
+			String readServicos = "select nome,estoque,estoquemin from produtos order by nome";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(readServicos);
 				rs = pst.executeQuery();
-				PdfPTable tabela = new PdfPTable(6);
-				PdfPCell col1 = new PdfPCell(new Paragraph("OS"));
-				PdfPCell col2 = new PdfPCell(new Paragraph("DataOS"));
-				PdfPCell col3 = new PdfPCell(new Paragraph("Equipamento"));
-				PdfPCell col4 = new PdfPCell(new Paragraph("Defeito"));
-				PdfPCell col5 = new PdfPCell(new Paragraph("Valor"));
-				PdfPCell col6 = new PdfPCell(new Paragraph("Nome"));
+				PdfPTable tabela = new PdfPTable(4);
+				PdfPCell col1 = new PdfPCell(new Paragraph("Produto"));
+				PdfPCell col2 = new PdfPCell(new Paragraph("Estoque"));
+				PdfPCell col3 = new PdfPCell(new Paragraph("Estoque mínimo"));
+				PdfPCell col4 = new PdfPCell(new Paragraph("Precisa repor?"));
 				tabela.addCell(col1);
 				tabela.addCell(col2);
 				tabela.addCell(col3);
 				tabela.addCell(col4);
-				tabela.addCell(col5);
-				tabela.addCell(col6);
 				while (rs.next()) {
 					tabela.addCell(rs.getString(1));
 					tabela.addCell(rs.getString(2));
 					tabela.addCell(rs.getString(3));
-					tabela.addCell(rs.getString(4));
-					tabela.addCell(rs.getString(5));
-					tabela.addCell(rs.getString(6));
+					tabela.addCell("[  ] SIM [  ]  NÃO");
 				}
 				document.add(tabela);
 				con.close();
@@ -354,31 +349,22 @@ public class Relatorios extends JDialog {
 			document.add(new Paragraph(formatador.format(dataRelatorio)));
 			document.add(new Paragraph("Validade:"));
 			document.add(new Paragraph(" "));
-			String readServicos = "select servicos.os,servicos.dataos,servicos.equipamento,servicos.defeito,servicos.valor,clientes.nome from servicos inner join clientes on servicos.idcli = clientes.idcli";
+			String readServicos = "select nome,dataent,dataval from produtos order by nome";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(readServicos);
 				rs = pst.executeQuery();
-				PdfPTable tabela = new PdfPTable(6);
-				PdfPCell col1 = new PdfPCell(new Paragraph("OS"));
-				PdfPCell col2 = new PdfPCell(new Paragraph("DataOS"));
-				PdfPCell col3 = new PdfPCell(new Paragraph("Equipamento"));
-				PdfPCell col4 = new PdfPCell(new Paragraph("Defeito"));
-				PdfPCell col5 = new PdfPCell(new Paragraph("Valor"));
-				PdfPCell col6 = new PdfPCell(new Paragraph("Nome"));
+				PdfPTable tabela = new PdfPTable(3);
+				PdfPCell col1 = new PdfPCell(new Paragraph("Produto"));
+				PdfPCell col2 = new PdfPCell(new Paragraph("Data de entrada"));
+				PdfPCell col3 = new PdfPCell(new Paragraph("Data de validade"));
 				tabela.addCell(col1);
 				tabela.addCell(col2);
 				tabela.addCell(col3);
-				tabela.addCell(col4);
-				tabela.addCell(col5);
-				tabela.addCell(col6);
 				while (rs.next()) {
 					tabela.addCell(rs.getString(1));
 					tabela.addCell(rs.getString(2));
 					tabela.addCell(rs.getString(3));
-					tabela.addCell(rs.getString(4));
-					tabela.addCell(rs.getString(5));
-					tabela.addCell(rs.getString(6));
 				}
 				document.add(tabela);
 				con.close();
@@ -396,59 +382,6 @@ public class Relatorios extends JDialog {
 		}
 	}
 
-	private void relatorioPatrimonio() {
-		Document document = new Document();
-		document.setPageSize(PageSize.A4.rotate());
-		try {
-			PdfWriter.getInstance(document, new FileOutputStream("patrimonio.pdf"));
-			document.open();
-			Date dataRelatorio = new Date();
-			DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
-			document.add(new Paragraph(formatador.format(dataRelatorio)));
-			document.add(new Paragraph("Patrimônio:"));
-			document.add(new Paragraph(" "));
-			String readServicos = "select servicos.os,servicos.dataos,servicos.equipamento,servicos.defeito,servicos.valor,clientes.nome from servicos inner join clientes on servicos.idcli = clientes.idcli";
-			try {
-				con = dao.conectar();
-				pst = con.prepareStatement(readServicos);
-				rs = pst.executeQuery();
-				PdfPTable tabela = new PdfPTable(6);
-				PdfPCell col1 = new PdfPCell(new Paragraph("OS"));
-				PdfPCell col2 = new PdfPCell(new Paragraph("DataOS"));
-				PdfPCell col3 = new PdfPCell(new Paragraph("Equipamento"));
-				PdfPCell col4 = new PdfPCell(new Paragraph("Defeito"));
-				PdfPCell col5 = new PdfPCell(new Paragraph("Valor"));
-				PdfPCell col6 = new PdfPCell(new Paragraph("Nome"));
-				tabela.addCell(col1);
-				tabela.addCell(col2);
-				tabela.addCell(col3);
-				tabela.addCell(col4);
-				tabela.addCell(col5);
-				tabela.addCell(col6);
-				while (rs.next()) {
-					tabela.addCell(rs.getString(1));
-					tabela.addCell(rs.getString(2));
-					tabela.addCell(rs.getString(3));
-					tabela.addCell(rs.getString(4));
-					tabela.addCell(rs.getString(5));
-					tabela.addCell(rs.getString(6));
-				}
-				document.add(tabela);
-				con.close();
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		document.close();
-		try {
-			Desktop.getDesktop().open(new File("patrimonio.pdf"));
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
 	private void relatorioFornecedores() {
 		Document document = new Document();
 		document.setPageSize(PageSize.A4.rotate());
@@ -460,31 +393,28 @@ public class Relatorios extends JDialog {
 			document.add(new Paragraph(formatador.format(dataRelatorio)));
 			document.add(new Paragraph("Fornecedores:"));
 			document.add(new Paragraph(" "));
-			String readServicos = "select servicos.os,servicos.dataos,servicos.equipamento,servicos.defeito,servicos.valor,clientes.nome from servicos inner join clientes on servicos.idcli = clientes.idcli";
+			String readServicos = "select razao,fantasia,cnpj,fone,email from fornecedores order by razao";
 			try {
 				con = dao.conectar();
 				pst = con.prepareStatement(readServicos);
 				rs = pst.executeQuery();
-				PdfPTable tabela = new PdfPTable(6);
-				PdfPCell col1 = new PdfPCell(new Paragraph("OS"));
-				PdfPCell col2 = new PdfPCell(new Paragraph("DataOS"));
-				PdfPCell col3 = new PdfPCell(new Paragraph("Equipamento"));
-				PdfPCell col4 = new PdfPCell(new Paragraph("Defeito"));
-				PdfPCell col5 = new PdfPCell(new Paragraph("Valor"));
-				PdfPCell col6 = new PdfPCell(new Paragraph("Nome"));
+				PdfPTable tabela = new PdfPTable(5);
+				PdfPCell col1 = new PdfPCell(new Paragraph("Razão"));
+				PdfPCell col2 = new PdfPCell(new Paragraph("Fantasia"));
+				PdfPCell col3 = new PdfPCell(new Paragraph("CNPJ"));
+				PdfPCell col4 = new PdfPCell(new Paragraph("Telefone"));
+				PdfPCell col5 = new PdfPCell(new Paragraph("Email"));
 				tabela.addCell(col1);
 				tabela.addCell(col2);
 				tabela.addCell(col3);
 				tabela.addCell(col4);
 				tabela.addCell(col5);
-				tabela.addCell(col6);
 				while (rs.next()) {
 					tabela.addCell(rs.getString(1));
 					tabela.addCell(rs.getString(2));
 					tabela.addCell(rs.getString(3));
 					tabela.addCell(rs.getString(4));
 					tabela.addCell(rs.getString(5));
-					tabela.addCell(rs.getString(6));
 				}
 				document.add(tabela);
 				con.close();
@@ -497,6 +427,101 @@ public class Relatorios extends JDialog {
 		document.close();
 		try {
 			Desktop.getDesktop().open(new File("fornecedores.pdf"));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	private void relatorioPatrimonio() {
+
+		Document document = new Document();
+
+		try {
+			PdfWriter.getInstance(document, new FileOutputStream("estoque.pdf"));
+			document.open();
+			Date dataRelatorio = new Date();
+			DateFormat formatador = DateFormat.getDateInstance(DateFormat.FULL);
+			document.add(new Paragraph(formatador.format(dataRelatorio)));
+			document.add(new Paragraph("Estoque:"));
+			document.add(new Paragraph(" "));
+			String readClientes = "select codigo as código, nome as produto, date_format(dataval, '%d/%m/%Y') as validade, estoque, estoquemin as estóque_mínimo from produtos where estoque < estoquemin;";
+			try {
+				con = dao.conectar();
+				pst = con.prepareStatement(readClientes);
+				rs = pst.executeQuery();
+				PdfPTable tabela = new PdfPTable(5);
+				PdfPCell col1 = new PdfPCell(new Paragraph("código: "));
+				PdfPCell col2 = new PdfPCell(new Paragraph("produto: "));
+				PdfPCell col3 = new PdfPCell(new Paragraph("validade: "));
+				PdfPCell col4 = new PdfPCell(new Paragraph("estoque: "));
+				PdfPCell col5 = new PdfPCell(new Paragraph("estoque mínimo: "));
+				tabela.addCell(col1);
+				tabela.addCell(col2);
+				tabela.addCell(col3);
+				tabela.addCell(col4);
+				tabela.addCell(col5);
+				while (rs.next()) {
+					tabela.addCell(rs.getString(1));
+					tabela.addCell(rs.getString(2));
+					tabela.addCell(rs.getString(3));
+					tabela.addCell(rs.getString(4));
+					tabela.addCell(rs.getString(5));
+				}
+				document.add(tabela);
+				document.add(new Paragraph("Validade:"));
+				document.add(new Paragraph(" "));
+				String read = "select codigo as código, nome as produto, date_format(dataval, '%d/%m/%Y') as validade from produtos where dataval < dataent;";
+				pst = con.prepareStatement(read);
+				rs = pst.executeQuery();
+				PdfPTable tabela2 = new PdfPTable(3);
+				PdfPCell col6 = new PdfPCell(new Paragraph("código: "));
+				PdfPCell col7 = new PdfPCell(new Paragraph("produto: "));
+				PdfPCell col8 = new PdfPCell(new Paragraph("validade: "));
+				tabela2.addCell(col6);
+				tabela2.addCell(col7);
+				tabela2.addCell(col8);
+				while (rs.next()) {
+					tabela2.addCell(rs.getString(1));
+					tabela2.addCell(rs.getString(2));
+					tabela2.addCell(rs.getString(3));
+				}
+				document.add(tabela2);
+				document.add(new Paragraph(" "));
+				document.add(new Paragraph("Patrimônio (Custo):"));
+				document.add(new Paragraph(" "));
+				String read2 = "select sum(custo * estoque) as Total from produtos";
+				pst = con.prepareStatement(read2);
+				rs = pst.executeQuery();
+				PdfPTable tabela3 = new PdfPTable(1);
+				PdfPCell col12 = new PdfPCell(new Paragraph("Patrimônio custo: "));
+				tabela3.addCell(col12);
+				while (rs.next()) {
+					tabela3.addCell(rs.getString(1));
+				}
+				document.add(tabela3);
+				document.add(new Paragraph(" "));
+				document.add(new Paragraph("Patrimônio (venda):"));
+				document.add(new Paragraph(" "));
+				String readVenda = "select sum((custo + (custo * lucro)/100) * estoque) as total from produtos";
+				pst = con.prepareStatement(readVenda);
+				rs = pst.executeQuery();
+				PdfPTable tabela4 = new PdfPTable(1);
+				PdfPCell col43 = new PdfPCell(new Paragraph("Patrimônio venda: "));
+				tabela4.addCell(col43);
+				while (rs.next()) {
+					tabela4.addCell(rs.getString(1));
+				}
+				document.add(tabela4);
+				con.close();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		document.close();
+		try {
+			Desktop.getDesktop().open(new File("estoque.pdf"));
 		} catch (Exception e) {
 			System.out.println(e);
 		}

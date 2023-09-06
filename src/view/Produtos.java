@@ -74,6 +74,7 @@ public class Produtos extends JDialog {
 	private JLabel lblFoto;
 	private JButton btnCarregar;
 	private JTextField txtNome;
+	@SuppressWarnings("rawtypes")
 	private JList listPR;
 	private JScrollPane scrollPane;
 	private JTextField txtLote;
@@ -86,12 +87,14 @@ public class Produtos extends JDialog {
 	private JLabel lblLucro;
 	private JTextField txtLucro;
 	private JScrollPane scrollPaneFor;
+	@SuppressWarnings("rawtypes")
 	private JList listFor;
 	private JTextField txtFornecedor;
 	private JLabel lblIDFor;
 	private JTextField txtIDFor;
 	private JDateChooser dateValidade;
 	private JDateChooser dateEntrada;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cboUN;
 	private JPanel panelFor;
 	private JButton btnBuscar;
@@ -110,6 +113,7 @@ public class Produtos extends JDialog {
 		});
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Produtos() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Produtos.class.getResource("/img/produtos.png")));
 		setModal(true);
@@ -625,6 +629,7 @@ public class Produtos extends JDialog {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void listarFornecedor() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listFor.setModel(modelo);
@@ -699,6 +704,7 @@ public class Produtos extends JDialog {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void listarProdutos() {
 		DefaultListModel<String> modelo = new DefaultListModel<>();
 		listPR.setModel(modelo);
