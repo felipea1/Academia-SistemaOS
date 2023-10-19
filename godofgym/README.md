@@ -1,5 +1,5 @@
 ![GitHub](https://img.shields.io/github/license/felipea1/Academia-SistemaOS?color=green)
-# Academia - Sistema OS
+# God of gym - Sistema OS
 ### Este programa é um sistema para gestão de ordem de serviços e estoque (**Sistema OS**) de uma assistência técnica de manutenção de aparelhos de academia.  Este projeto é muito popular e serve como modelo para outros projetos de gestão de serviços, como por exemplo assistências técnicas de smartphones, eletrodomésticos, oficinas mecânicas etc.
 <HR>
 
