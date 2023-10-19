@@ -6,7 +6,7 @@
 ### Autor
 Felipe de Almeida Duarte
 ### Apresentação do projeto
-!["Sistema OS"](img/SISTEMA%20OS%20FUNDO.png)
+!["Sistema OS"](img/Design%20sem%20nome%20(2).png)
 ### Referência do projeto
 Professor José de Assis
 
