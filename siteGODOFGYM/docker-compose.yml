@@ -1,0 +1,31 @@
+version: '3.1'
+
+services: 
+
+  wordpress:
+    image: wordpress
+    container_name: gymworld
+    restart: always
+    ports:
+      - 5050:80
+    environment:
+      WORDPRESS_DB_HOST: db 
+      WORDPRESS_DB_USER: senac
+      WORDPRESS_DB_PASSWORD: 123@senac
+      WORDPRESS_DB_NAME: dbgym
+    volumes:
+      -  ~/osgym:/var/www/html
+
+  db:
+    image: mysql
+    container_name: bancogym
+    restart: always
+    ports:
+      - 4040:3306
+    environment:
+        MYSQL_DATABASE: dbgym
+        MYSQL_USER: senac
+        MYSQL_PASSWORD: 123@senac 
+        MYSQL_RANDOM_ROOT_PASSWORD: 123@senac
+    volumes:
+      - ~/dbgym:/var/lib/mysql
